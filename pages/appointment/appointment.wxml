@@ -1,0 +1,86 @@
+<!--pages/appointment/appointment.wxml-->
+<view class="container">
+  <!-- 搜索区域 -->
+  <view class="search-area">
+    <view class="search-inputs">
+      <view class="search-item">
+        <text>项目名称：</text>
+        <input type="text" placeholder="请输入项目名称" bindinput="handleInputChange" data-field="itemName" value="{{itemName}}"/>
+      </view>
+      <view class="search-item">
+        <text>医生姓名：</text>
+        <input type="text" placeholder="请输入医生姓名" bindinput="handleInputChange" data-field="doctorName" value="{{doctorName}}"/>
+      </view>
+      <view class="search-item">
+        <text>用户姓名：</text>
+        <input type="text" placeholder="请输入用户姓名" bindinput="handleInputChange" data-field="userName" value="{{userName}}"/>
+      </view>
+    </view>
+    <view class="search-buttons">
+      <button class="btn search-btn" bindtap="handleSearch">搜索</button>
+      <button class="btn refresh-btn" bindtap="handleRefresh">刷新</button>
+    </view>
+  </view>
+
+  <!-- 预约记录列表 -->
+  <block wx:if="{{appointments.length > 0}}">
+    <view class="appointment-list">
+      <view class="appointment-card" wx:for="{{appointments}}" wx:key="appointmentId">
+        <view class="appointment-header">
+          <view class="appointment-id">预约ID: {{item.appointmentId}}</view>
+          <view class="appointment-status {{item.status === 1 ? 'pending' : 'completed'}}">
+            {{item.status === 1 ? '待就诊' : '已就诊'}}
+          </view>
+        </view>
+        <view class="appointment-info">
+          <view class="info-item">
+            <text class="info-label">项目名称：</text>
+            <text class="info-value">{{item.item_name}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">预约医生：</text>
+            <text class="info-value">{{item.doctor_name}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">预约用户：</text>
+            <text class="info-value">{{item.user_name}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">预约时间：</text>
+            <text class="info-value">{{item.appointmentTime}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">创建时间：</text>
+            <text class="info-value">{{item.createTime}}</text>
+          </view>
+          
+          <!-- 就诊结果区域 -->
+          <view class="result-area">
+            <text class="info-label">就诊结果：</text>
+            <block wx:if="{{item.status === 1}}">
+              <input type="text" placeholder="请输入就诊结果" bindinput="handleResultInput" data-id="{{item.appointmentId}}" value="{{item.tempResult}}"/>
+              <button class="btn upload-btn" bindtap="handleUploadResult" data-id="{{item.appointmentId}}">上传</button>
+            </block>
+            <block wx:else>
+              <input type="text" placeholder="请输入就诊结果" bindinput="handleResultInput" data-id="{{item.appointmentId}}" value="{{item.tempResult || item.result}}"/>
+              <button class="btn upload-btn" bindtap="handleUploadResult" data-id="{{item.appointmentId}}">修改</button>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 分页 -->
+    <view class="pagination">
+      <view class="page-info">
+        共 {{total}} 条记录，当前第 {{currentPage}} 页
+      </view>
+      <view class="page-buttons">
+        <button class="page-btn" disabled="{{currentPage <= 1}}" bindtap="handlePrevPage">上一页</button>
+        <button class="page-btn" disabled="{{currentPage * pageSize >= total}}" bindtap="handleNextPage">下一页</button>
+      </view>
+    </view>
+  </block>
+
+  <view wx:else class="empty-tip">暂无预约记录</view>
+</view>

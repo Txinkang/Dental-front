@@ -1,0 +1,50 @@
+<!--pages/consultation/consultation.wxml-->
+<view class="container">
+  <!-- 标题和刷新按钮 -->
+  <view class="header">
+    <view class="title">咨询管理</view>
+    <button class="refresh-btn" bindtap="handleRefresh">刷新</button>
+  </view>
+
+  <!-- 咨询列表 -->
+  <block wx:if="{{consultations.length > 0}}">
+    <view class="consultation-list">
+      <view class="consultation-card" wx:for="{{consultations}}" wx:key="consultationId">
+        <view class="consultation-info">
+          <view class="info-item">
+            <text class="info-label">咨询ID：</text>
+            <text class="info-value">{{item.consultationId}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">用户ID：</text>
+            <text class="info-value">{{item.userId}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">创建时间：</text>
+            <text class="info-value">{{item.createTime}}</text>
+          </view>
+          <view class="question-section">
+            <view class="question-label">问题内容：</view>
+            <view class="question-content">{{item.question}}</view>
+          </view>
+          
+          <!-- 回复区域 -->
+          <view class="answer-section">
+            <view class="answer-label">回复内容：</view>
+            <block wx:if="{{item.answer}}">
+              <view class="answer-content">{{item.answer}}</view>
+            </block>
+            <block wx:else>
+              <view class="answer-input-area">
+                <textarea placeholder="请输入回复内容" bindinput="handleAnswerInput" data-id="{{item.consultationId}}" value="{{answerInputs[item.consultationId] || ''}}"></textarea>
+                <button class="reply-btn" bindtap="handleReply" data-id="{{item.consultationId}}">确认回复</button>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view wx:else class="empty-tip">暂无咨询记录</view>
+</view>

@@ -1,0 +1,196 @@
+/* pages/appointment/appointment.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 搜索区域样式 */
+.search-area {
+  background-color: #fff;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+
+.search-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+}
+
+.search-item text {
+  width: 150rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.search-item input {
+  flex: 1;
+  height: 70rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+}
+
+.search-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+}
+
+.btn {
+  padding: 0 30rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  border-radius: 8rpx;
+}
+
+.search-btn {
+  background-color: #07c160;
+  color: #fff;
+}
+
+.refresh-btn {
+  background-color: #f0f0f0;
+}
+
+/* 预约卡片样式 */
+.appointment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.appointment-card {
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.appointment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+  margin-bottom: 16rpx;
+}
+
+.appointment-id {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.appointment-status {
+  font-size: 26rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 30rpx;
+}
+
+.appointment-status.pending {
+  background-color: #fef6e7;
+  color: #fa8c16;
+}
+
+.appointment-status.completed {
+  background-color: #e7f9ed;
+  color: #07c160;
+}
+
+.appointment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.info-item {
+  display: flex;
+  font-size: 28rpx;
+}
+
+.info-label {
+  width: 150rpx;
+  color: #666;
+}
+
+.info-value {
+  flex: 1;
+  color: #333;
+}
+
+/* 就诊结果区域 */
+.result-area {
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.result-area input {
+  flex: 1;
+  height: 70rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  margin: 0 20rpx;
+}
+
+.upload-btn {
+  min-width: 120rpx;
+  background-color: #07c160;
+  color: #fff;
+}
+
+/* 分页样式 */
+.pagination {
+  background-color: #fff;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+}
+
+.page-info {
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.page-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+.page-btn {
+  min-width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  background-color: #f0f0f0;
+  border-radius: 6rpx;
+}
+
+.page-btn[disabled] {
+  background-color: #f5f5f5;
+  color: #999;
+}
+
+/* 空提示 */
+.empty-tip {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

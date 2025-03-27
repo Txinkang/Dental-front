@@ -1,0 +1,287 @@
+/* pages/doctor/doctor.wxss */
+.container {
+    padding: 20rpx;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #fff;
+    padding: 20rpx;
+    border-radius: 10rpx;
+    margin-bottom: 20rpx;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar {
+    width: 60%;
+}
+
+.search-bar input {
+    width: 100%;
+    height: 70rpx;
+    padding: 0 20rpx;
+    border: 2rpx solid #ddd;
+    border-radius: 8rpx;
+}
+
+.button-group {
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10rpx;
+}
+
+.btn {
+    padding: 0 30rpx;
+    min-width: 120rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    background-color: #f0f0f0;
+}
+
+.btn-primary {
+    background-color: #07c160;
+    color: #fff;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10rpx;
+    padding: 20rpx;
+    margin-bottom: 20rpx;
+}
+
+.card-content {
+    margin-bottom: 20rpx;
+    display: flex;
+    gap: 20rpx;
+}
+
+.doctor-avatar {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 8rpx;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.doctor-avatar image {
+    width: 100%;
+    height: 100%;
+}
+
+.doctor-info {
+    flex: 1;
+}
+
+.doctor-name {
+    font-size: 32rpx;
+    font-weight: bold;
+    margin-bottom: 10rpx;
+}
+
+.doctor-intro, .doctor-years {
+    font-size: 26rpx;
+    color: #666;
+    margin-bottom: 10rpx;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20rpx;
+    border-top: 2rpx solid #f0f0f0;
+    padding-top: 20rpx;
+}
+
+.action-btn {
+    padding: 0 30rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    font-size: 28rpx;
+    border-radius: 6rpx;
+    background-color: #f0f0f0;
+}
+
+.action-btn.delete {
+    background-color: #ff4d4f;
+    color: #fff;
+}
+
+.empty-tip {
+    text-align: center;
+    padding: 40rpx;
+    color: #999;
+    font-size: 28rpx;
+}
+
+/* 分页样式 */
+.pagination {
+    background-color: #fff;
+    padding: 20rpx;
+    border-radius: 10rpx;
+    margin-top: 20rpx;
+}
+
+.page-info {
+    text-align: center;
+    font-size: 28rpx;
+    color: #666;
+    margin-bottom: 20rpx;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20rpx;
+}
+
+.page-btn {
+    min-width: 160rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    font-size: 28rpx;
+    background-color: #f0f0f0;
+    border-radius: 6rpx;
+}
+
+.page-btn[disabled] {
+    background-color: #f5f5f5;
+    color: #999;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+.modal-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-height: 80vh;
+    background-color: #fff;
+    border-radius: 10rpx;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: 30rpx;
+    text-align: center;
+    font-size: 32rpx;
+    font-weight: bold;
+    border-bottom: 2rpx solid #f0f0f0;
+}
+
+.modal-body {
+    padding: 30rpx;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.form-item {
+    margin-bottom: 20rpx;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 10rpx;
+    font-size: 28rpx;
+    color: #333;
+}
+
+.form-item input, .form-item textarea {
+    width: 100%;
+    border: 2rpx solid #ddd;
+    border-radius: 6rpx;
+    font-size: 28rpx;
+    box-sizing: border-box;
+}
+
+.form-item input {
+    height: 80rpx;
+    padding: 0 20rpx;
+}
+
+.form-item textarea {
+    height: 160rpx;
+    padding: 16rpx 20rpx;
+    line-height: 1.5;
+}
+
+.avatar-upload {
+    width: 160rpx;
+    height: 160rpx;
+    border: 2rpx dashed #ddd;
+    border-radius: 6rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.avatar-upload image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #999;
+    font-size: 26rpx;
+}
+
+.upload-icon {
+    font-size: 48rpx;
+    line-height: 1;
+    margin-bottom: 10rpx;
+}
+
+.modal-footer {
+    display: flex;
+    border-top: 2rpx solid #f0f0f0;
+}
+
+.modal-btn {
+    flex: 1;
+    height: 90rpx;
+    line-height: 90rpx;
+    text-align: center;
+    font-size: 32rpx;
+    background-color: #fff;
+}
+
+.modal-btn.confirm {
+    background-color: #07c160;
+    color: #fff;
+}

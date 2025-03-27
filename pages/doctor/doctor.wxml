@@ -1,0 +1,88 @@
+<!--pages/doctor/doctor.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="header-top">
+      <view class="search-bar">
+        <input type="text" placeholder="搜索医生姓名" bindinput="handleSearch" value="{{searchValue}}" />
+      </view>
+      <view class="button-group">
+        <button class="btn" bindtap="handleRefresh">刷新</button>
+        <button class="btn btn-primary" bindtap="showAddModal">添加</button>
+      </view>
+    </view>
+  </view>
+
+  <block wx:if="{{doctors.length > 0}}">
+    <view class="card" wx:for="{{doctors}}" wx:key="doctorId">
+      <view class="card-content">
+        <view class="doctor-avatar">
+          <image src="{{item.doctorAvatar ? 'http://localhost:8080/images/doctorPictures/' + item.doctorAvatar : '/images/default-avatar.png'}}" mode="aspectFill"></image>
+        </view>
+        <view class="doctor-info">
+          <view class="doctor-name">{{item.doctorName}}</view>
+          <view class="doctor-intro">简介：{{item.introduction}}</view>
+          <view class="doctor-years">工作年限：{{item.workingYears}}年</view>
+        </view>
+      </view>
+      <view class="card-actions">
+        <button class="action-btn" bindtap="showEditModal" data-doctor="{{item}}">修改</button>
+        <button class="action-btn delete" bindtap="handleDelete" data-id="{{item.doctorId}}">删除</button>
+      </view>
+    </view>
+
+    <!-- 分页 -->
+    <view class="pagination">
+      <view class="page-info">
+        共 {{total}} 条记录，当前第 {{currentPage}} 页
+      </view>
+      <view class="page-buttons">
+        <button class="page-btn" disabled="{{currentPage <= 1}}" bindtap="handlePrevPage">上一页</button>
+        <button class="page-btn" disabled="{{currentPage * pageSize >= total}}" bindtap="handleNextPage">下一页</button>
+      </view>
+    </view>
+  </block>
+
+  <view wx:else class="empty-tip">暂无数据</view>
+
+  <!-- 添加/修改弹窗 -->
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text>{{isEdit ? '修改医生' : '添加医生'}}</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">医生姓名</text>
+          <input type="text" placeholder="请输入医生姓名" value="{{modalData.doctorName}}" bindinput="handleInput" data-field="doctorName"/>
+        </view>
+        
+        <view class="form-item">
+          <text class="form-label">医生简介</text>
+          <textarea placeholder="请输入医生简介" value="{{modalData.introduction}}" bindinput="handleInput" data-field="introduction"></textarea>
+        </view>
+        
+        <view class="form-item">
+          <text class="form-label">工作年限</text>
+          <input type="number" placeholder="请输入工作年限" value="{{modalData.workingYears}}" bindinput="handleInput" data-field="workingYears"/>
+        </view>
+        
+        <view class="form-item">
+          <text class="form-label">医生头像</text>
+          <view class="avatar-upload" bindtap="chooseImage">
+            <image wx:if="{{tempFilePath}}" src="{{tempFilePath}}" mode="aspectFill"></image>
+            <image wx:elif="{{isEdit && modalData.doctorAvatar}}" src="{{'http://localhost:8080/images/doctorPictures/' + modalData.doctorAvatar}}" mode="aspectFill"></image>
+            <view wx:else class="upload-placeholder">
+              <text class="upload-icon">+</text>
+              <text>上传头像</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn" bindtap="hideModal">取消</button>
+        <button class="modal-btn confirm" bindtap="handleConfirm">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

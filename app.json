@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/item/item",
+    "pages/doctor/doctor",
+    "pages/appointment/appointment",
+    "pages/consultation/consultation",
+    "pages/education/education",
+    "pages/profile/profile",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "项目管理",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/item/item",
+        "text": "项目管理"
+      },
+      {
+        "pagePath": "pages/doctor/doctor",
+        "text": "医生管理"
+      },
+      {
+        "pagePath": "pages/appointment/appointment",
+        "text": "预约管理"
+      },
+      {
+        "pagePath": "pages/consultation/consultation",
+        "text": "咨询管理"
+      },
+      {
+        "pagePath": "pages/education/education",
+        "text": "科普管理"
+      }
+    ]
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

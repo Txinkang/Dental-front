@@ -1,0 +1,73 @@
+<!--pages/education/education.wxml-->
+<view class="container">
+  <!-- 搜索区域 -->
+  <view class="header">
+    <view class="header-top">
+      <view class="search-bar">
+        <input type="text" placeholder="搜索标题" bindinput="handleInputChange" value="{{educationTitle}}" />
+      </view>
+      <view class="button-group">
+        <button class="btn" bindtap="handleSearch">搜索</button>
+        <button class="btn btn-primary" bindtap="showAddModal">添加</button>
+        <button class="profile-btn" bindtap="navigateToProfile">我的</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 科普信息列表 -->
+  <block wx:if="{{educations.length > 0}}">
+    <view class="education-list">
+      <view class="education-card" wx:for="{{educations}}" wx:key="educationId">
+        <view class="education-content">
+          <view class="education-title">{{item.educationTitle}}</view>
+          <view class="education-text">{{item.educationContent}}</view>
+          <view class="education-time">
+            <text>创建时间: {{item.createTime}}</text>
+            <text>更新时间: {{item.updateTime}}</text>
+          </view>
+        </view>
+        <view class="card-actions">
+          <button class="action-btn" bindtap="showEditModal" data-education="{{item}}">修改</button>
+          <button class="action-btn delete" bindtap="handleDelete" data-id="{{item.educationId}}">删除</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 分页 -->
+    <view class="pagination">
+      <view class="page-info">
+        共 {{total}} 条记录，当前第 {{currentPage}} 页
+      </view>
+      <view class="page-buttons">
+        <button class="page-btn" disabled="{{currentPage <= 1}}" bindtap="handlePrevPage">上一页</button>
+        <button class="page-btn" disabled="{{currentPage * pageSize >= total}}" bindtap="handleNextPage">下一页</button>
+      </view>
+    </view>
+  </block>
+
+  <view wx:else class="empty-tip">暂无科普信息</view>
+
+  <!-- 添加/修改弹窗 -->
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text>{{isEdit ? '修改科普信息' : '添加科普信息'}}</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">科普标题</text>
+          <input type="text" placeholder="请输入科普标题" value="{{modalData.educationTitle}}" bindinput="handleModalInput" data-field="educationTitle"/>
+        </view>
+        <view class="form-item">
+          <text class="form-label">科普内容</text>
+          <textarea placeholder="请输入科普内容" value="{{modalData.educationContent}}" bindinput="handleModalInput" data-field="educationContent"></textarea>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn" bindtap="hideModal">取消</button>
+        <button class="modal-btn confirm" bindtap="handleConfirm">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,270 @@
+/* pages/item/item.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #fff;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-bar {
+  width: 60%;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 70rpx;
+  padding: 0 20rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+}
+
+.button-group {
+  width: 35%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10rpx;
+}
+
+.btn {
+  padding: 0 30rpx;
+  min-width: 120rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  background-color: #f0f0f0;
+}
+
+.btn-primary {
+  background-color: #07c160;
+  color: #fff;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.card-content {
+  margin-bottom: 20rpx;
+}
+
+.item-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.doctor-list {
+  font-size: 28rpx;
+}
+
+.doctor-title {
+  color: #666;
+}
+
+.doctor-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 10rpx;
+}
+
+.doctor-tag {
+  background-color: #f0f0f0;
+  padding: 6rpx 20rpx;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.delete-doctor {
+  margin-left: 10rpx;
+  color: #ff4d4f;
+  font-size: 32rpx;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+  border-top: 2rpx solid #f0f0f0;
+  padding-top: 20rpx;
+}
+
+.action-btn {
+  padding: 0 30rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  border-radius: 6rpx;
+  background-color: #f0f0f0;
+}
+
+.action-btn.delete {
+  background-color: #ff4d4f;
+  color: #fff;
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  background-color: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.modal-body {
+  padding: 30rpx;
+}
+
+.modal-body input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 20rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.picker {
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+}
+
+.picker-label {
+  color: #666;
+}
+
+.modal-footer {
+  display: flex;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 32rpx;
+  background-color: #fff;
+}
+
+.modal-btn.confirm {
+  background-color: #07c160;
+  color: #fff;
+}
+
+.doctor-select {
+  margin-top: 20rpx;
+}
+
+.doctor-select-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.doctor-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.doctor-checkbox text {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+}
+
+checkbox .wx-checkbox-input {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background: #07c160;
+  border-color: #07c160;
+}
+
+/* 分页样式 */
+.pagination {
+  background-color: #fff;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+}
+
+.page-info {
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.page-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+.page-btn {
+  min-width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  background-color: #f0f0f0;
+  border-radius: 6rpx;
+}
+
+.page-btn[disabled] {
+  background-color: #f5f5f5;
+  color: #999;
+}
