@@ -1,0 +1,59 @@
+<!--pages/appointment/appointment.wxml-->
+<view class="container">
+  <!-- 刷新按钮 -->
+  <view class="refresh-section">
+    <button class="refresh-btn" bindtap="onRefresh">
+      刷新项目列表
+    </button>
+  </view>
+
+  <!-- 项目列表 -->
+  <view class="item-list">
+    <block wx:for="{{itemList}}" wx:key="itemId">
+      <view class="item-card">
+        <view class="item-name">{{item.itemName}}</view>
+        
+        <!-- 选择时间 -->
+        <view class="select-section">
+          <text class="select-label">选择时间：</text>
+          <picker 
+            mode="selector" 
+            range="{{timeList}}" 
+            range-key="label"
+            bindchange="onTimeChange"
+            data-itemid="{{item.itemId}}"
+          >
+            <view class="picker">
+              {{selectedTime[item.itemId].label || '请选择时间'}}
+            </view>
+          </picker>
+        </view>
+
+        <!-- 选择医生 -->
+        <view class="select-section">
+          <text class="select-label">选择医生：</text>
+          <picker 
+            mode="selector" 
+            range="{{item.doctor}}" 
+            range-key="doctorName"
+            bindchange="onDoctorChange"
+            data-itemid="{{item.itemId}}"
+          >
+            <view class="picker">
+              {{selectedDoctors[item.itemId].doctorName || '请选择医生'}}
+            </view>
+          </picker>
+        </view>
+
+        <!-- 预约按钮 -->
+        <button 
+          class="appoint-btn" 
+          bindtap="onAppointment" 
+          data-itemid="{{item.itemId}}"
+        >
+          确认预约
+        </button>
+      </view>
+    </block>
+  </view>
+</view>

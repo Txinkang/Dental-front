@@ -1,0 +1,115 @@
+<!--pages/my/my.wxml-->
+<view class="container">
+  <!-- 个人信息卡片 -->
+  <view class="user-card">
+    <view class="user-info">
+      <view class="info-item">
+        <text class="label">账号：</text>
+        <text class="value">{{userInfo.userAccount}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">姓名：</text>
+        <text class="value">{{userInfo.userName}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">邮箱：</text>
+        <text class="value">{{userInfo.userEmail}}</text>
+      </view>
+    </view>
+    <button class="edit-btn" bindtap="showEditDialog">编辑资料</button>
+  </view>
+
+  <!-- 预约记录列表 -->
+  <view class="appointment-list">
+    <view class="section-header">
+      <text class="section-title">预约记录</text>
+      <button class="refresh-btn" bindtap="onRefresh">刷新记录</button>
+    </view>
+    <block wx:for="{{appointmentList}}" wx:key="appointmentId">
+      <view class="appointment-card">
+        <view class="appointment-info">
+          <view class="info-row">
+            <text class="label">项目：</text>
+            <text class="value">{{item.item_name}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">医生：</text>
+            <text class="value">{{item.doctor_name}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">时间：</text>
+            <text class="value">{{item.appointmentTime}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">结果：</text>
+            <text class="value">{{item.result || '暂无'}}</text>
+          </view>
+        </view>
+        <button 
+          wx:if="{{canCancelAppointment(item.appointmentTime)}}"
+          class="cancel-btn" 
+          bindtap="cancelAppointment" 
+          data-appointmentid="{{item.appointmentId}}"
+        >
+          取消预约
+        </button>
+      </view>
+    </block>
+  </view>
+
+  <!-- 编辑信息弹窗 -->
+  <view class="modal" wx:if="{{showEditModal}}">
+    <view class="modal-mask" bindtap="closeEditDialog"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">编辑个人信息</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">账号</text>
+          <input 
+            class="form-input" 
+            value="{{editForm.userAccount}}"
+            data-field="userAccount"
+            bindinput="onFormInput"
+          />
+        </view>
+        <view class="form-item">
+          <text class="form-label">密码</text>
+          <input 
+            class="form-input" 
+            password
+            value="{{editForm.userPassword}}"
+            data-field="userPassword"
+            bindinput="onFormInput"
+          />
+        </view>
+        <view class="form-item">
+          <text class="form-label">姓名</text>
+          <input 
+            class="form-input" 
+            value="{{editForm.userName}}"
+            data-field="userName"
+            bindinput="onFormInput"
+          />
+        </view>
+        <view class="form-item">
+          <text class="form-label">邮箱</text>
+          <input 
+            class="form-input" 
+            value="{{editForm.userEmail}}"
+            data-field="userEmail"
+            bindinput="onFormInput"
+          />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn cancel" bindtap="closeEditDialog">取消</button>
+        <button class="modal-btn confirm" bindtap="submitEdit">确认</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加退出登录按钮 -->
+  <button class="logout-btn" bindtap="handleLogout">退出登录</button>
+</view>

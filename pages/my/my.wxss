@@ -1,0 +1,209 @@
+/* pages/my/my.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+
+/* 用户信息卡片 */
+.user-card {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  margin-bottom: 20rpx;
+}
+
+.info-item {
+  margin-bottom: 16rpx;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+  margin-right: 16rpx;
+}
+
+.value {
+  color: #333;
+  font-size: 28rpx;
+}
+
+.edit-btn {
+  width: 100%;
+  background-color: #1989fa;
+  color: white;
+  font-size: 28rpx;
+  padding: 16rpx 0;
+  border-radius: 8rpx;
+}
+
+/* 预约记录列表 */
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.appointment-card {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.appointment-info {
+  margin-bottom: 20rpx;
+}
+
+.info-row {
+  margin-bottom: 12rpx;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.cancel-btn {
+  width: 100%;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 28rpx;
+  padding: 12rpx 0;
+  border-radius: 8rpx;
+}
+
+/* 弹窗样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  background-color: white;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 30rpx;
+  text-align: center;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-body {
+  padding: 30rpx;
+}
+
+.form-item {
+  margin-bottom: 20rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #eee;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.modal-footer {
+  display: flex;
+  border-top: 1rpx solid #eee;
+}
+
+.modal-btn {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 32rpx;
+  border-radius: 0;
+}
+
+.modal-btn.cancel {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.modal-btn.confirm {
+  background-color: #1989fa;
+  color: white;
+}
+
+.modal-btn::after {
+  border: none;
+}
+
+/* 预约记录标题区域 */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.refresh-btn {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 24rpx;
+  padding: 8rpx 24rpx;
+  border-radius: 8rpx;
+  margin: 0;
+  min-width: 140rpx;
+}
+
+.logout-btn {
+  width: 90%;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 28rpx;
+  padding: 16rpx 0;
+  border-radius: 8rpx;
+  margin-top: 30rpx;
+}

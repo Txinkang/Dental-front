@@ -1,0 +1,55 @@
+<!--index.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <!-- Title Section -->
+    <view class="title-section">
+      <text class="main-title">口腔科普小程序</text>
+    </view>
+    
+    <!-- Education Swiper Section -->
+    <view class="swiper-section">
+      <text class="section-title">科普信息</text>
+      <swiper class="education-swiper" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+        <block wx:for="{{educationList}}" wx:key="educationId">
+          <swiper-item>
+            <view class="education-item">
+              <text class="education-title">{{item.educationTitle}}</text>
+              <text class="education-content">{{item.educationContent}}</text>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    
+    <!-- Doctors Section -->
+    <view class="doctors-section">
+      <text class="section-title">医生团队</text>
+      <view class="doctors-grid">
+        <block wx:for="{{doctorList}}" wx:key="doctorId">
+          <view class="doctor-card" bindtap="showDoctorDetails" data-doctorid="{{item.doctorId}}">
+            <image class="doctor-avatar" src="{{item.fullAvatarUrl}}" mode="aspectFill"></image>
+            <text class="doctor-name">{{item.doctorName}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    
+    <!-- Doctor Detail Modal -->
+    <view class="doctor-detail-modal" wx:if="{{showDoctorDetail}}">
+      <view class="modal-content">
+        <view class="modal-header">
+          <text class="modal-title">医生详情</text>
+          <text class="modal-close" bindtap="closeDoctorDetails">×</text>
+        </view>
+        <view class="modal-body">
+          <image class="detail-avatar" src="{{selectedDoctor.fullAvatarUrl}}" mode="aspectFill"></image>
+          <view class="detail-info">
+            <text class="detail-name">{{selectedDoctor.doctorName}}</text>
+            <text class="detail-years">从业年限: {{selectedDoctor.workingYears}}年</text>
+            <text class="detail-intro">简介: {{selectedDoctor.introduction}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

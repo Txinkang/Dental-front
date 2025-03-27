@@ -1,0 +1,50 @@
+<!--pages/consultation/consultation.wxml-->
+<view class="container">
+  <!-- 顶部按钮区域 -->
+  <view class="button-section">
+    <button class="action-btn question-btn" bindtap="showQuestionDialog">
+      咨询问题
+    </button>
+    <button class="action-btn refresh-btn" bindtap="onRefresh">
+      刷新列表
+    </button>
+  </view>
+
+  <!-- 咨询列表 -->
+  <view class="consultation-list">
+    <block wx:for="{{consultationList}}" wx:key="consultationId">
+      <view class="consultation-card">
+        <view class="question-section">
+          <text class="label">问题：</text>
+          <text class="content">{{item.question}}</text>
+        </view>
+        <view class="answer-section">
+          <text class="label">回答：</text>
+          <text class="content">{{item.answer || '等待回复中...'}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 提问弹窗 -->
+  <view class="modal" wx:if="{{showQuestionModal}}">
+    <view class="modal-mask" bindtap="closeQuestionDialog"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">请输入您的问题</text>
+      </view>
+      <view class="modal-body">
+        <textarea 
+          class="question-input" 
+          placeholder="请详细描述您的问题..."
+          value="{{questionContent}}"
+          bindinput="onQuestionInput"
+        ></textarea>
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn cancel" bindtap="closeQuestionDialog">取消</button>
+        <button class="modal-btn confirm" bindtap="submitQuestion">确认</button>
+      </view>
+    </view>
+  </view>
+</view>
