@@ -1,6 +1,6 @@
 // request.js - API request utility
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:8888';
 const checkToken = () => {
     const token = wx.getStorageSync('token');
     if (!token) {

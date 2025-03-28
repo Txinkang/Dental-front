@@ -173,10 +173,15 @@ Page({
       return;
     }
 
+    // 将时间戳转换为格式化的日期时间字符串
+    const timestamp = selectedTime.value;
+    const date = new Date(timestamp * 1000);
+    const formattedDate = date.toISOString().slice(0, 19).replace('T', ' '); // 格式: YYYY-MM-DD HH:MM:SS
+
     const appointmentData = {
       doctorId: selectedDoctor.doctorId,
       itemId: itemid,
-      appointmentTime: selectedTime.value.toString()
+      appointmentTime: formattedDate
     };
 
     wx.showLoading({ title: '预约中...' });

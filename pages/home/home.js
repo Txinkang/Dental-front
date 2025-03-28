@@ -49,7 +49,7 @@ Page({
           // Process doctor data to add full avatar URL
           const doctors = res.data.map(doctor => ({
             ...doctor,
-            fullAvatarUrl: `http://localhost:8080/images/doctorPictures/${doctor.doctorAvatar}`
+            fullAvatarUrl: `http://localhost:8888/images/doctorPictures/${doctor.doctorAvatar}`
           }));
           
           this.setData({
