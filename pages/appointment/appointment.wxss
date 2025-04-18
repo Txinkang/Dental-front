@@ -107,6 +107,11 @@
   color: #07c160;
 }
 
+.appointment-status.breached {
+  background-color: #fff1f0;
+  color: #ff4d4f;
+}
+
 .appointment-info {
   display: flex;
   flex-direction: column;
@@ -149,6 +154,21 @@
 .upload-btn {
   min-width: 120rpx;
   background-color: #07c160;
+  color: #fff;
+}
+
+/* 毁约按钮区域 */
+.breach-area {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.breach-btn {
+  min-width: 160rpx;
+  background-color: #ff4d4f;
   color: #fff;
 }
 

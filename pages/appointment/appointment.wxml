@@ -28,8 +28,8 @@
       <view class="appointment-card" wx:for="{{appointments}}" wx:key="appointmentId">
         <view class="appointment-header">
           <view class="appointment-id">预约ID: {{item.appointmentId}}</view>
-          <view class="appointment-status {{item.status === 1 ? 'pending' : 'completed'}}">
-            {{item.status === 1 ? '待就诊' : '已就诊'}}
+          <view class="appointment-status {{item.status === 1 ? 'pending' : (item.status === 2 ? 'completed' : 'breached')}}">
+            {{item.status === 1 ? '待就诊' : (item.status === 2 ? '已就诊' : '已毁约')}}
           </view>
         </view>
         <view class="appointment-info">
@@ -55,7 +55,7 @@
           </view>
           
           <!-- 就诊结果区域 -->
-          <view class="result-area">
+          <view class="result-area" wx:if="{{item.status !== 3}}">
             <text class="info-label">就诊结果：</text>
             <block wx:if="{{item.status === 1}}">
               <input type="text" placeholder="请输入就诊结果" bindinput="handleResultInput" data-id="{{item.appointmentId}}" value="{{item.tempResult}}"/>
@@ -65,6 +65,11 @@
               <input type="text" placeholder="请输入就诊结果" bindinput="handleResultInput" data-id="{{item.appointmentId}}" value="{{item.tempResult || item.result}}"/>
               <button class="btn upload-btn" bindtap="handleUploadResult" data-id="{{item.appointmentId}}">修改</button>
             </block>
+          </view>
+          
+          <!-- 毁约按钮区域 -->
+          <view class="breach-area" wx:if="{{item.status === 1}}">
+            <button class="btn breach-btn" bindtap="handleBreachAppointment" data-id="{{item.appointmentId}}">标记毁约</button>
           </view>
         </view>
       </view>

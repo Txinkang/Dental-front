@@ -202,6 +202,46 @@ Page({
   },
 
   /**
+   * 处理毁约
+   */
+  async handleBreachAppointment(e) {
+    const { id } = e.currentTarget.dataset;
+    
+    wx.showModal({
+      title: '提示',
+      content: '确定要标记该预约为毁约吗？',
+      success: async (res) => {
+        if (res.confirm) {
+          try {
+            wx.showLoading({
+              title: '处理中...'
+            });
+            
+            console.log("标记毁约请求参数:", id);
+            const res = await appointment.breachAppointment({appointmentId: id});
+            
+            if (res.code === 200) {
+              console.log("标记毁约响应数据:", res);
+              wx.showToast({
+                title: '已标记为毁约',
+                icon: 'success'
+              });
+              // 刷新列表
+              this.getAppointments();
+            } else {
+              errorHandler.errorHandler(res, '标记毁约失败');
+            }
+          } catch (error) {
+            errorHandler.errorHandler(error, '标记毁约失败');
+          } finally {
+            wx.hideLoading();
+          }
+        }
+      }
+    });
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
   onShow() {

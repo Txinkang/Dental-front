@@ -1,7 +1,7 @@
 // 封装wx.request
 import errorHandler from '../utils/errorHandler';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = 'http://localhost:8888';
 
 // 将对象转换为URL查询字符串
 const objectToQueryString = (obj) => {
