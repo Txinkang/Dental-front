@@ -42,11 +42,11 @@
           </view>
           <view class="info-row">
             <text class="label">结果：</text>
-            <text class="value">{{item.result || '暂无'}}</text>
+            <text class="value">{{item.status === 3 ? '已毁约' : item.result || '暂无'}}</text>
           </view>
         </view>
         <button 
-          wx:if="{{canCancelAppointment(item.appointmentTime)}}"
+          wx:if="{{item.canCancel}}"
           class="cancel-btn" 
           bindtap="cancelAppointment" 
           data-appointmentid="{{item.appointmentId}}"

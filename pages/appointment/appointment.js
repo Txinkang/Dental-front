@@ -17,7 +17,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.generateTimeList();
     this.fetchItems();
   },
 
@@ -70,43 +69,22 @@ Page({
 
   },
 
-  // 生成时间列表
-  generateTimeList() {
-    const timeList = [];
-    const startHour = 8;
-    const endHour = 17;
-    const now = new Date();
-    
-    for (let hour = startHour; hour <= endHour; hour++) {
-      for (let minute = 0; minute < 60; minute += 15) {
-        const timeDate = new Date();
-        timeDate.setHours(hour, minute, 0, 0);
-        
-        // 只添加未来的时间点
-        if (timeDate > now) {
-          const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-          timeList.push({
-            label: timeString,
-            value: Math.floor(timeDate.getTime() / 1000)
-          });
-        }
-      }
-    }
-
-    this.setData({ timeList });
-  },
-
   // 获取项目列表
   fetchItems() {
     wx.showLoading({ title: '加载中...' });
     appointmentAPI.getItems()
       .then(res => {
         if (res.code === 200) {
+          // 处理服务器返回的时间戳数组
+          const timeList = this.processAppointmentTimes(res.data[0].appointmentTime);
           this.setData({ 
             itemList: res.data,
+            timeList: timeList,
             selectedTime: {},
             selectedDoctors: {}
           });
+          console.log("项目列表", this.data.itemList);
+          console.log("可用时间列表", this.data.timeList);
         }
       })
       .catch(err => {
@@ -118,6 +96,26 @@ Page({
       .finally(() => {
         wx.hideLoading();
       });
+  },
+
+  // 处理服务器返回的时间戳数组
+  processAppointmentTimes(timestampArray) {
+    if (!timestampArray || !Array.isArray(timestampArray)) {
+      return [];
+    }
+    return timestampArray.map(timestamp => {
+      const date = new Date(timestamp * 1000);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      
+      return {
+        label: `${year}-${month}-${day} ${hours}:${minutes}`,
+        value: timestamp
+      };
+    });
   },
 
   // 刷新项目列表
@@ -146,6 +144,7 @@ Page({
     this.setData({
       ['selectedTime.' + itemid]: selectedTime
     });
+    console.log("选择的时间", this.data.selectedTime);
   },
 
   // 选择医生
@@ -173,10 +172,19 @@ Page({
       return;
     }
 
-    // 将时间戳转换为格式化的日期时间字符串
+    // 将时间戳转换为本地格式化的日期时间字符串
     const timestamp = selectedTime.value;
     const date = new Date(timestamp * 1000);
-    const formattedDate = date.toISOString().slice(0, 19).replace('T', ' '); // 格式: YYYY-MM-DD HH:MM:SS
+    
+    // 使用本地时间格式化，而不是UTC
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
     const appointmentData = {
       doctorId: selectedDoctor.doctorId,
@@ -192,8 +200,15 @@ Page({
             title: '预约成功',
             icon: 'success'
           });
+          console.log("预约成功", res);
           // 重新获取项目列表
           this.fetchItems();
+        }else{
+          wx.showToast({
+            title: res.data,
+            icon: 'none'
+          });
+          console.log("预约失败", res);
         }
       })
       .catch(err => {

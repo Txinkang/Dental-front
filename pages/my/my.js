@@ -100,7 +100,35 @@ Page({
       .then(res => {
         if (res.code === 200) {
           console.log(res.data);
-          const newList = loadMore ? [...appointmentList, ...res.data] : res.data;
+          
+          // 为每个预约项添加canCancel属性
+          const processedData = res.data.map(item => {
+            // 计算是否可以取消预约
+            let canCancel = false;
+            
+            if (item.appointmentTime) {
+              const now = new Date();
+              
+              try {
+                // 尝试解析日期字符串 (格式: YYYY-MM-DD HH:MM:SS)
+                const parts = item.appointmentTime.split(/[- :]/);
+                // 注意: 月份是从0开始的, 所以要减1
+                const appointmentDate = new Date(
+                  parts[0], parts[1] - 1, parts[2], 
+                  parts[3], parts[4], parts[5]
+                );
+                
+                const timeDiff = appointmentDate - now;
+                canCancel = timeDiff > 15 * 60 * 1000; // 15分钟转换为毫秒
+              } catch (error) {
+                console.error("Error parsing appointment time:", error);
+              }
+            }
+            
+            return { ...item, canCancel };
+          });
+          
+          const newList = loadMore ? [...appointmentList, ...processedData] : processedData;
           this.setData({ 
             appointmentList: newList,
           });
@@ -203,10 +231,37 @@ Page({
 
   // 检查是否可以取消预约
   canCancelAppointment(appointmentTime) {
+    console.log("appointmentTime", appointmentTime);
+    if (!appointmentTime) return false;
+    
     const now = new Date();
-    const appointmentDate = new Date(appointmentTime);
-    const timeDiff = appointmentDate - now;
-    return timeDiff > 15 * 60 * 1000; // 15分钟转换为毫秒
+    
+    // 判断appointmentTime是否为时间戳
+    if (!isNaN(Number(appointmentTime)) && Number(appointmentTime) > 946684800000) { // 2000年以后的时间戳
+      const appointmentDate = new Date(Number(appointmentTime));
+      const timeDiff = appointmentDate - now;
+      console.log("timeDiff (from timestamp)", timeDiff);
+      return timeDiff > 15 * 60 * 1000; // 15分钟转换为毫秒
+    }
+    
+    // 尝试解析日期字符串 (格式: YYYY-MM-DD HH:MM:SS)
+    try {
+      // 将字符串格式的时间转换为Date对象
+      const parts = appointmentTime.split(/[- :]/);
+      // 注意: 月份是从0开始的, 所以要减1
+      const appointmentDate = new Date(
+        parts[0], parts[1] - 1, parts[2], 
+        parts[3], parts[4], parts[5]
+      );
+      
+      const timeDiff = appointmentDate - now;
+      console.log("appointmentDate", appointmentDate);
+      console.log("timeDiff (from string)", timeDiff);
+      return timeDiff > 15 * 60 * 1000; // 15分钟转换为毫秒
+    } catch (error) {
+      console.error("Error parsing appointment time:", error);
+      return false;
+    }
   },
 
   // 刷新预约记录
