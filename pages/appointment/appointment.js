@@ -75,16 +75,24 @@ Page({
     appointmentAPI.getItems()
       .then(res => {
         if (res.code === 200) {
-          // 处理服务器返回的时间戳数组
-          const timeList = this.processAppointmentTimes(res.data[0].appointmentTime);
+          console.log("请求项目成功返回数据：", res.data);
+          
+          // 处理每个项目的时间列表
+          const processedItems = res.data.map(item => {
+            // 处理每个项目的预约时间
+            const timeList = this.processAppointmentTimes(item.appointmentTime);
+            return {
+              ...item,
+              timeList: timeList // 为每个项目添加处理后的时间列表
+            };
+          });
+          
           this.setData({ 
-            itemList: res.data,
-            timeList: timeList,
+            itemList: processedItems,
             selectedTime: {},
             selectedDoctors: {}
           });
-          console.log("项目列表", this.data.itemList);
-          console.log("可用时间列表", this.data.timeList);
+          console.log("处理后的项目列表", this.data.itemList);
         }
       })
       .catch(err => {
@@ -103,19 +111,28 @@ Page({
     if (!timestampArray || !Array.isArray(timestampArray)) {
       return [];
     }
-    return timestampArray.map(timestamp => {
-      const date = new Date(timestamp * 1000);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-      const hours = date.getHours().toString().padStart(2, '0');
-      const minutes = date.getMinutes().toString().padStart(2, '0');
-      
-      return {
-        label: `${year}-${month}-${day} ${hours}:${minutes}`,
-        value: timestamp
-      };
-    });
+    
+    const now = new Date(); // 获取当前时间
+    
+    // 过滤掉当前时间之前的时间选项，并对剩余时间进行格式化
+    return timestampArray
+      .filter(timestamp => {
+        const appointmentDate = new Date(timestamp * 1000);
+        return appointmentDate > now; // 只保留未来的时间
+      })
+      .map(timestamp => {
+        const date = new Date(timestamp * 1000);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        
+        return {
+          label: `${year}-${month}-${day} ${hours}:${minutes}`,
+          value: timestamp
+        };
+      });
   },
 
   // 刷新项目列表
@@ -128,8 +145,15 @@ Page({
     const { itemid } = e.currentTarget.dataset;
     const { value } = e.detail;
     
-    // 检查选择的时间是否有效
-    const selectedTime = this.data.timeList[value];
+    // 找到当前项目
+    const currentItem = this.data.itemList.find(item => item.itemId === itemid);
+    if (!currentItem || !currentItem.timeList || !currentItem.timeList[value]) {
+      console.error("找不到项目或时间列表:", itemid, value);
+      return;
+    }
+    
+    // 从当前项目的时间列表中获取选中的时间
+    const selectedTime = currentItem.timeList[value];
     const now = new Date();
     const selectedDate = new Date(selectedTime.value * 1000);
     

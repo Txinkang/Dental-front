@@ -18,7 +18,7 @@
           <text class="select-label">选择时间：</text>
           <picker 
             mode="selector" 
-            range="{{timeList}}" 
+            range="{{item.timeList}}" 
             range-key="label"
             bindchange="onTimeChange"
             data-itemid="{{item.itemId}}"
