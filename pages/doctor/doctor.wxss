@@ -88,7 +88,7 @@
     margin-bottom: 10rpx;
 }
 
-.doctor-intro, .doctor-years {
+.doctor-intro, .doctor-years, .doctor-schedule {
     font-size: 26rpx;
     color: #666;
     margin-bottom: 10rpx;
@@ -233,6 +233,25 @@
     height: 160rpx;
     padding: 16rpx 20rpx;
     line-height: 1.5;
+}
+
+/* 排班复选框样式 */
+.schedule-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20rpx;
+    margin-top: 10rpx;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 6rpx;
+}
+
+.checkbox-item text {
+    font-size: 26rpx;
+    color: #333;
 }
 
 .avatar-upload {
